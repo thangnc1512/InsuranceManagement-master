@@ -78,7 +78,6 @@ public class AddCusActivity extends AppCompatActivity {
                 customer.setDob(edtDOB.getText().toString());
                 customer.setPhone(edtPhone.getText().toString());
                 customerDAO.insertCustomer(customer);
-                Toast.makeText(AddCusActivity.this, "Add", Toast.LENGTH_SHORT).show();
 
 //                String name = edtName.getText().toString();
 //                String email = edtEmail.getText().toString();

@@ -49,15 +49,15 @@ public class InvoiceAdapter extends BaseAdapter {
         TextView txtID = row.findViewById(R.id.txtID);
         TextView txtIdCus = row.findViewById(R.id.txtIDCus);
         TextView txtName = row.findViewById(R.id.txtNameCus);
-        TextView txtType = row.findViewById(R.id.txtType);
+        TextView txtDate = row.findViewById(R.id.txtDate);
 
         Invoice invoice = list.get(position);
-        txtID.setText(invoice.id);
+        txtID.setText(invoice.id+"");
         txtName.setText(invoice.name);
-        txtIdCus.setText(invoice.id+"");
-        txtType.setText(invoice.type);
+        txtIdCus.setText(invoice.idCus+"");
+        txtDate.setText(invoice.date);
 
-        Bitmap bmAvatar = BitmapFactory.decodeByteArray(invoice.img, 0, invoice.id.length());
+        Bitmap bmAvatar = BitmapFactory.decodeByteArray(invoice.img, 0, invoice.img.length);
         imgAvatar.setImageBitmap(bmAvatar);
         return row;
     }

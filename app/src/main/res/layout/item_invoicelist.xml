@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="BVHN0001"
+            android:text="000134"
             android:id="@+id/txtID"/>
 
         <TextView
@@ -47,8 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Xe co gioi"
-            android:id="@+id/txtType"/>
+            android:text="13/10/2018"
+            android:id="@+id/txtDate"/>
 
 
         <LinearLayout

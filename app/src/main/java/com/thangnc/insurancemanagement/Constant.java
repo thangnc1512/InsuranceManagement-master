@@ -34,11 +34,16 @@ public interface Constant {
     String TABLE_INVOICE = "Invoice";
     String ID_INVOICE = "IdIV";
     String NAME_INVOICE = "NameIV";
+    String DATE_INVOICE = "Date";
+    String ID_CUSTOMER = "IdCustomer";
+    String IMAGE = "Image";
 
 
-    public static String CREATE_TABLE_INVOICE = "CREATE TABLE " + TABLE_INVOICE + " ("
+    String CREATE_TABLE_INVOICE = "CREATE TABLE " + TABLE_INVOICE + " ("
             + ID_INVOICE + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + NAME_INVOICE + " VARCHAR(30),"
-            + COLUMN_ID + " INTEGER CONSTRAINT PK_CustomerID_Invoice REFERENCES Invoice(IdIV)"
+            + DATE_INVOICE + " VARCHAR(30),"
+            + IMAGE + " BLOB,"
+            + ID_CUSTOMER + " VARCHAR(20)"
             + ")";
 }

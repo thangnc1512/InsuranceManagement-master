@@ -14,12 +14,15 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constant {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_CUSTOMER);
+        db.execSQL(CREATE_TABLE_INVOICE);
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_CUSTOMER);
+        db.execSQL("DROP TABLE IF EXISTS "+TABLE_INVOICE);
+
         onCreate(db);
     }
 }
