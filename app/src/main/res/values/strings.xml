@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">IM</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Pham Viet Hung</string>
+    <string name="nav_header_subtitle">pvhungbvhn@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="search">Search</string>
+
+    <string name="title_activity_add_customer">AddCustomerActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="title_activity_add_invoice">Add Invoice</string>
+
+    <string name="title_activity_manage">Manage</string>
+
+    <string name="title_activity_add_cus">Add Customer</string>
+
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string-array name="type">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Both</item>
+    </string-array>
+</resources>
