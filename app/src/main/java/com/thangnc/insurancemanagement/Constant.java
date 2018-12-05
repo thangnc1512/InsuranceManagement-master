@@ -42,7 +42,7 @@ public interface Constant {
     String CREATE_TABLE_INVOICE = "CREATE TABLE " + TABLE_INVOICE + " ("
             + ID_INVOICE + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + NAME_INVOICE + " VARCHAR(30),"
-            + DATE_INVOICE + " VARCHAR(30),"
+            + DATE_INVOICE + " LONG,"
             + IMAGE + " BLOB,"
             + ID_CUSTOMER + " VARCHAR(20)"
             + ")";

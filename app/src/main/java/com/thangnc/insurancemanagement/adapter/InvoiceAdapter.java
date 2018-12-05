@@ -1,6 +1,8 @@
 package com.thangnc.insurancemanagement.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import com.thangnc.insurancemanagement.R;
 import com.thangnc.insurancemanagement.model.Invoice;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class InvoiceAdapter extends BaseAdapter {
@@ -39,6 +42,12 @@ public class InvoiceAdapter extends BaseAdapter {
         return 0;
     }
 
+    public String simpleDateFormat(long date){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String dateFormat = simpleDateFormat.format(date);
+        return dateFormat;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -55,8 +64,18 @@ public class InvoiceAdapter extends BaseAdapter {
         txtID.setText(invoice.id+"");
         txtName.setText(invoice.name);
         txtIdCus.setText(invoice.idCus+"");
-        txtDate.setText(invoice.date);
+        txtDate.setText(simpleDateFormat(invoice.getDate()));
 
+        imgEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Update Invoice");
+                LayoutInflater inflater1 = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view = inflater1.inflate(R.layout.update_invoice, null);
+
+            }
+        });
         Bitmap bmAvatar = BitmapFactory.decodeByteArray(invoice.img, 0, invoice.img.length);
         imgAvatar.setImageBitmap(bmAvatar);
         return row;

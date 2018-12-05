@@ -20,7 +20,7 @@ public class InvoiceDAO implements Constant {
         this.databaseHelper = databaseHelper;
     }
 
-    public long insertInvoice(String name, String date, int idCustomer, byte[] img){
+    public long insertInvoice(String name, long date, int idCustomer, byte[] img){
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(NAME_INVOICE, name);
@@ -32,6 +32,21 @@ public class InvoiceDAO implements Constant {
         return id;
     }
 
+//    public long updateInvoice(int id){
+//        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put(NAME_INVOICE, invoice.getName());
+//        contentValues.put(DATE_INVOICE, invoice.getDate());
+//        contentValues.put(ID_CUSTOMER, invoice.getIdCus());
+//        contentValues.put(IMAGE, invoice.getImg());
+//        long result = database.update(TABLE_INVOICE, contentValues, ID_INVOICE+"=?",
+//                new String[]{id});
+//        return id;
+//
+//    }
+
+
+
     public List<Invoice> getAllInvoice(){
         List<Invoice> invoiceList = new ArrayList<>();
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
@@ -42,7 +57,7 @@ public class InvoiceDAO implements Constant {
                 Invoice invoice = new Invoice();
                 invoice.setId(cursor.getInt(cursor.getColumnIndex(ID_INVOICE)));
                 invoice.setName(cursor.getString(cursor.getColumnIndex(NAME_INVOICE)));
-                invoice.setDate(cursor.getString(cursor.getColumnIndex(DATE_INVOICE)));
+                invoice.setDate(cursor.getLong(cursor.getColumnIndex(DATE_INVOICE)));
                 invoice.setIdCus(cursor.getInt(cursor.getColumnIndex(ID_CUSTOMER)));
                 invoice.setImg(cursor.getBlob(cursor.getColumnIndex(IMAGE)));
                 invoiceList.add(invoice);
@@ -52,4 +67,6 @@ public class InvoiceDAO implements Constant {
         }
         return invoiceList;
     }
+
+
 }

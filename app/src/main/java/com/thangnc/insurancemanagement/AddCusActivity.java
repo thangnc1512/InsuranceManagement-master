@@ -107,6 +107,7 @@ public class AddCusActivity extends AppCompatActivity {
 //                    }
 //                }
                 Toast.makeText(AddCusActivity.this, "Add succed", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(AddCusActivity.this, HomeActivity.class));
                 edtName.setText("");
                 edtEmail.setText("");
                 edtAddress.setText("");

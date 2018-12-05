@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thangnc.insurancemanagement.DetailCustomerActivity;
@@ -24,6 +25,14 @@ import com.thangnc.insurancemanagement.sqlitedao.CustomerDAO;
 import java.util.List;
 
 public class CustomerAdapter extends RecyclerView.Adapter<CustomerHolder> {
+
+    private TextView tvName;
+    private TextView tvID;
+    private TextView tvGender;
+    private TextView tvEmail;
+    private TextView tvPhone;
+    private TextView tvDOB;
+    private TextView tvAddress;
 
     private DatabaseHelper databaseHelper;
     private Context context;
@@ -52,10 +61,29 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerHolder> {
         customerHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Customer customer1 = customerList.get(position);
-                int id = customerList.get(position).getId();
-                Intent intent = new Intent(context, DetailCustomerActivity.class);
-                context.startActivity(new Intent(context, DetailCustomerActivity.class));
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view = inflater.inflate(R.layout.item_customer, null);
+                tvName = (TextView) view.findViewById(R.id.tvName);
+                tvID = (TextView) view.findViewById(R.id.tvID);
+                tvGender = (TextView) view.findViewById(R.id.tvGender);
+                tvEmail = (TextView)view.findViewById(R.id.tvEmail);
+                tvPhone = (TextView) view.findViewById(R.id.tvPhone);
+                tvDOB = (TextView) view.findViewById(R.id.tvDOB);
+                tvAddress = (TextView) view.findViewById(R.id.tvAddress);
+
+                tvName.setText(customerList.get(position).getName());
+                tvID.setText(customerList.get(position).getId()+"");
+                tvGender.setText(customerList.get(position).getGender());
+                tvEmail.setText(customerList.get(position).getEmail());
+                tvDOB.setText(customerList.get(position).getDob());
+                tvAddress.setText(customerList.get(position).getAddress());
+
+
+                builder.setView(view);
+
+                builder.show();
 
             }
         });

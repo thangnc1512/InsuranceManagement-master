@@ -25,9 +25,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thangnc.insurancemanagement.database.DatabaseHelper;
+import com.thangnc.insurancemanagement.model.Customer;
 import com.thangnc.insurancemanagement.model.Invoice;
 import com.thangnc.insurancemanagement.sqlitedao.InvoiceDAO;
 
@@ -36,6 +39,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import static com.thangnc.insurancemanagement.Constant.TABLE_INVOICE;
 
@@ -43,7 +47,7 @@ import static com.thangnc.insurancemanagement.Constant.TABLE_INVOICE;
 public class AddInvoiceActivity extends AppCompatActivity {
 
 
-    private EditText edtIDCus;
+    private EditText edtIdCus;
     private EditText edtName;
     private EditText edtDate;
     private ImageView imgInvoice;
@@ -56,6 +60,9 @@ public class AddInvoiceActivity extends AppCompatActivity {
     private SQLiteDatabase database;
     private final int REQUEST_TAKE_PHOTO = 123;
     private final int REQUEST_CHOOSE_PHOTO = 321;
+    private List<Customer> list;
+
+    private long datePicker = 0;
 
 
     String[] listType;
@@ -150,7 +157,7 @@ public class AddInvoiceActivity extends AppCompatActivity {
 //    }
 
     private void initView() {
-        edtIDCus = (EditText) findViewById(R.id.edtIDCus);
+        edtIdCus = (EditText) findViewById(R.id.edtIdCus);
         edtName = (EditText) findViewById(R.id.edtName);
         edtDate = (EditText) findViewById(R.id.edtDate);
         imgInvoice = (ImageView) findViewById(R.id.imgInvoice);
@@ -173,16 +180,17 @@ public class AddInvoiceActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 calendar.set(year, month, dayOfMonth);
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                edtDate.setText(simpleDateFormat.format(calendar.getTime()));
+                datePicker = calendar.getTimeInMillis();
+                edtDate.setText(simpleDateFormat.format(datePicker));
             }
         }, nam, thang, ngay);
         datePickerDialog.show();
     }
 
     private void insert() {
-        String date = edtDate.getText().toString().trim();
+        long date = datePicker;
         String name = edtName.getText().toString().trim();
-        int idCus = Integer.parseInt(edtIDCus.getText().toString().trim());
+        int idCus = Integer.parseInt(edtIdCus.getText().toString().trim());
         byte[] img = getByteArray(imgInvoice);
         invoiceDAO.insertInvoice(name, date, idCus, img);
         Toast.makeText(this, "Add successfull", Toast.LENGTH_SHORT).show();

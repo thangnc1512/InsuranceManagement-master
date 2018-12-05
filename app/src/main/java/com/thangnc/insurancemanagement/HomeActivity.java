@@ -1,5 +1,6 @@
 package com.thangnc.insurancemanagement;
 
+import android.app.Notification;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.support.design.widget.NavigationView;
@@ -16,23 +18,34 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.thangnc.insurancemanagement.database.DatabaseHelper;
 import com.thangnc.insurancemanagement.fragment.CustomerFragment;
 import com.thangnc.insurancemanagement.fragment.InvoiceFragment;
 import com.thangnc.insurancemanagement.fragment.StatisticFragment;
+import com.thangnc.insurancemanagement.sqlitedao.InvoiceDAO;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private BottomNavigationView btnNav;
     private CustomerFragment fragmentCustomer;
     private InvoiceFragment fragmentInvoice;
     private StatisticFragment fragmentStatistic;
+    private InvoiceDAO invoiceDAO;
+    private DatabaseHelper databaseHelper;
+
 
     final String DATABASE_NAME = "CustomerDB.sqlite";
     SQLiteDatabase database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,11 +58,35 @@ public class HomeActivity extends AppCompatActivity
         fragmentCustomer = new CustomerFragment();
         fragmentStatistic = new StatisticFragment();
         fragmentInvoice = new InvoiceFragment();
-        showFragment(fragmentCustomer);
+        databaseHelper = new DatabaseHelper(this);
+        invoiceDAO = new InvoiceDAO(databaseHelper);
+
+        for (int i = 0; i < invoiceDAO.getAllInvoice().size(); i++) {
+            long date = invoiceDAO.getAllInvoice().get(i).getDate();
+            long dateEnd = date + 30000;
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Notification.Builder mBuilder = new Notification.Builder(HomeActivity.this);
+                    mBuilder.setContentTitle("Tin nhắn mới");
+                    mBuilder.setContentText("Có điểm thực hành môn Android.");
+                    mBuilder.setTicker("Thông báo!"); mBuilder.setSmallIcon(R.drawable.ic_exit_to_app_black_24dp);
+
+
+
+                    Log.e("timer", "Thuc hien cong viec!");
+                }
+            }, dateEnd);
+            break;
+        }
+
+
+        showFragment(fragmentStatistic);
         btnNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
                     case R.id.customer:
                         showFragment(fragmentCustomer);
                         return true;
@@ -63,7 +100,6 @@ public class HomeActivity extends AppCompatActivity
                 return false;
             }
         });
-
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -137,7 +173,7 @@ public class HomeActivity extends AppCompatActivity
 //
 //        }
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_user:
                 startActivity(new Intent(HomeActivity.this, AddCusActivity.class));
                 break;
@@ -158,7 +194,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void Exit() {
-        AlertDialog.Builder builder =  new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Exit");
         builder.setMessage("Do you want to exit ?");
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {

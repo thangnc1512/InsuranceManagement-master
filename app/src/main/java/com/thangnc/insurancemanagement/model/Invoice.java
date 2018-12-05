@@ -1,27 +1,20 @@
 package com.thangnc.insurancemanagement.model;
 
 public class Invoice {
-    public String name, date;
+    public String name;
+    public long date;
     public int id, idCus;
     public byte[] img;
 
-    public Invoice(int id, String name, String date, int idCus, byte[] img) {
-        this.id = id;
+    public Invoice(String name, long date, int id, int idCus, byte[] img) {
         this.name = name;
         this.date = date;
+        this.id = id;
         this.idCus = idCus;
         this.img = img;
     }
 
     public Invoice() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -32,12 +25,20 @@ public class Invoice {
         this.name = name;
     }
 
-    public String getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(long date) {
         this.date = date;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getIdCus() {
